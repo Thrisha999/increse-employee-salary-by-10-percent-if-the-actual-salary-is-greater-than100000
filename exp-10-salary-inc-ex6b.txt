@@ -1,0 +1,18 @@
+declare
+ cursor c1 is select EID,Salary,Exp from Emp_1;
+ id Emp_1.EID%type;
+ sal Emp_1.Salary%type;
+ e Emp_1.Exp%type;
+begin
+ open c1;
+ loop 
+	fetch c1 into id,sal,e;
+	if(e>10) then
+		update Emp_1 set Salary=sal+(sal*0.1) where EID=id;
+	end if;
+	dbms_output.put_line(id||chr(9)||sal||chr(9)||e);
+	exit  when c1%notfound;
+ end loop;
+ close c1;
+end;
+/
